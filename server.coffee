@@ -17,7 +17,7 @@ app.use(express.logger('dev'))
 app.use(express.bodyParser())
 app.use(express.methodOverride())
 app.use(app.router)
-app.use('/public', express.static(path.join(__dirname, 'public')))
+app.use('/remote/public', express.static(path.join(__dirname, 'public')))
 app.enable('trust proxy')
 
 # development only
