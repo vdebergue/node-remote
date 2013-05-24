@@ -2,7 +2,7 @@ $(document).ready( () ->
     if window.MozWebSocket 
         window.WebSocket = window.MozWebSocket
 
-    socket = new WebSocket("ws://remotecontrol.azurewebsites.net")
+    socket = new WebSocket("ws://atez.rezel.net/remote")
     user = "Vince"
 
     socket.onopen = () ->
