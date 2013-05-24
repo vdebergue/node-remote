@@ -23,9 +23,10 @@ if ('development' == app.get('env'))
 
 
 app.get('/', routes.index)
+addr = app.address()
 
 server = http.createServer(app).listen(app.get('port'), () ->
-    console.log('Express server listening on port ' + app.get('port') + ' address: ' + app.get('address'))
+    console.log("Express server listening on #{addr.address}:#{addr.port}")
 )
 
 # Websocket
