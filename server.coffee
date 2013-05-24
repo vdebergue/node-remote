@@ -38,6 +38,7 @@ connectionsByUser = {}
 
 addConnectionToUser = (user, connection, isRemote) ->
     connection.user = user
+    console.log "adding connection #{connection.id} to user #{user}"
     connection.isRemote = isRemote
     if not connectionsByUser.hasOwnProperty(user)
         connectionsByUser[user] = {devices : [], remotes: []}
