@@ -55,6 +55,7 @@ wsServer = new WebSocketServer({
 })
 
 wsServer.on('request', (request) ->
+    console.log "new request"
     if not originIsAllowed(request.origin)
         request.reject
 
@@ -104,6 +105,7 @@ wsServer.on('request', (request) ->
         delete connections[id]
         # remove from connection by user
         type =  if connection.isRemote then "remotes" else "devices"
+        console.log "closing connection #{id} of #{user} / type: #{type}"
         array = connectionsByUser[user][type]
         index = array.indexOf(id)
         array.splice(index, 1)
