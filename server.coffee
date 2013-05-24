@@ -38,7 +38,7 @@ connectionsByUser = {}
 
 addConnectionToUser = (user, connection, isRemote) ->
     connection.user = user
-    console.log "adding connection #{connection.id} to user #{user}"
+    console.log "adding connection #{connection.id} to user #{user} isRemote: #{isRemote}"
     connection.isRemote = isRemote
     if not connectionsByUser.hasOwnProperty(user)
         connectionsByUser[user] = {devices : [], remotes: []}
@@ -46,6 +46,8 @@ addConnectionToUser = (user, connection, isRemote) ->
         connectionsByUser[user]["remotes"].push(connection.id)
     else 
         connectionsByUser[user]["devices"].push(connection.id)
+
+    console.log "connectionsByUser", connectionsByUser
 
 originIsAllowed = (origin) ->
     console.log origin
@@ -68,7 +70,7 @@ wsServer.on('request', (request) ->
     connection.on('message', (message) ->
         if message.type == 'utf8'
             msgObj = JSON.parse message.utf8Data
-            console.log connection.id + " :" + message.utf8Data
+            console.log(connection.id + " :" + message.utf8Data)
             
             if msgObj.type == "Authentification"
                 user = msgObj.data.user
@@ -93,7 +95,6 @@ wsServer.on('request', (request) ->
                 for remoteId in connectionsByUser[connection.user]["remotes"]
                     conn = connections[remoteId]
                     conn.sendUTF(message.utf8Data)
-
 
         else 
             console.log "Not UTF8 message"
